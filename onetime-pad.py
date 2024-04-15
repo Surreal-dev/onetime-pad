@@ -1,16 +1,17 @@
 import random
 
-plaintext = "This is an ENCRYPTED message!"
+plaintext = "The Quick Brown Fox Jumps Over The Lazy Dog"
 
 def cleantext(message):
 
-    clean = ""
+    message = ''.join(c for c in message if c.isalnum())
+    # Convert all characters to lowercase
+    message = message.lower()
+    # Remove all spaces
+    message = ''.join(message)
+    return message
 
-    for letter in message:
-        if letter.isalpha():
-            clean = clean + letter
-
-    return clean
+text = cleantext(plaintext)
 
 def generatekey(message):
 
@@ -18,21 +19,43 @@ def generatekey(message):
 
     alphabet = list("abcdefghijklmnopqrstuvwxyz")
 
-    text = cleantext(message)
-
-    for letter in range(0, len(text)):
+    for letter in range(0, len(message)):
         key = key + random.choice(alphabet)
 
     return key
 
-key = generatekey(plaintext)
+key = generatekey(text)
 
-print(key)
+print("Key: " + key)
 
 def encrypt(message, key):
 
     encrypted = ""
 
-    for character, letter in message, key:
+    for character, letter in zip(message, key):
 
-        encrypted = encrypted + char(ord(character) + ord(letter))
+        joined = ord(character) + ord(letter)
+        
+        encrypted = encrypted + chr(joined)
+        
+    return encrypted
+
+encrypted = encrypt(text, key)
+
+print("Encrypted Message: " + encrypted)
+
+def decrypt(encryptedtext, key):
+    
+    decrypted = ""
+    
+    for character, letter in zip(encryptedtext, key):
+
+        joined = ord(character) - ord(letter)
+        
+        decrypted = decrypted + chr(joined)
+        
+    return decrypted
+
+decrypted = decrypt(encrypted, key)
+
+print("Decrypted Message: " + decrypted)
