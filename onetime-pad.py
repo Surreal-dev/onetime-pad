@@ -1,13 +1,13 @@
 import random
 
-plaintext = "The Quick Brown Fox Jumps Over The Lazy Dog"
+plaintext = input("Enter some text to encrypt: ")
 
 def cleantext(message):
 
     message = ''.join(c for c in message if c.isalnum())
-    # Convert all characters to lowercase
+
     message = message.lower()
-    # Remove all spaces
+
     message = ''.join(message)
     return message
 
@@ -56,6 +56,9 @@ def decrypt(encryptedtext, key):
         
     return decrypted
 
-decrypted = decrypt(encrypted, key)
+encryptText = input("Enter encrypted text: ")
+keyText = input("Enter key: ")
+
+decrypted = decrypt(encryptText, keyText)
 
 print("Decrypted Message: " + decrypted)
